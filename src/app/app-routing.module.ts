@@ -1,16 +1,44 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IngresadoGuard } from './ingresado.guard';
+import { NoIngresadoGuard } from './no-ingresado.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    canActivate: [NoIngresadoGuard]
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule),
+    canActivate: [NoIngresadoGuard]
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
+    canActivate: [IngresadoGuard]
+  },
+  {
+    path: 'galeria',
+    loadChildren: () => import('./galeria/galeria.module').then( m => m.GaleriaPageModule),
+    canActivate: [IngresadoGuard]
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
+    canActivate: [IngresadoGuard]
+  },
+  {
+    path: 'galeria',
+    loadChildren: () => import('./galeria/galeria.module').then( m => m.GaleriaPageModule)
+  },
+ 
 ];
 
 @NgModule({
